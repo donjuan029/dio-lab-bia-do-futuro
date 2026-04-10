@@ -1,0 +1,48 @@
+{
+  "juros_compostos": {
+    "descricao": "Cálculo de rendimento ao longo do tempo com reinvestimento",
+    "formula": "M = P * (1 + i)^n",
+    "variaveis": {
+      "P": "valor inicial",
+      "i": "taxa de juros mensal",
+      "n": "tempo em meses"
+    },
+    "exemplo_usuario": {
+      "valor_inicial": 10000,
+      "taxa": 0.01,
+      "periodo_meses": 12,
+      "resultado_aproximado": 11268
+    }
+  },
+
+  "aporte_mensal": {
+    "descricao": "Simula crescimento com aportes mensais",
+    "formula": "M = P + (aporte * n)",
+    "exemplo_usuario": {
+      "aporte_mensal": 500,
+      "periodo_meses": 10,
+      "resultado": 15000,
+      "contexto": "Usuário pode atingir a meta de reserva de emergência"
+    }
+  },
+
+  "parcelamento": {
+    "descricao": "Divisão simples de valores",
+    "formula": "parcela = valor_total / numero_parcelas",
+    "exemplo": {
+      "valor_total": 1200,
+      "parcelas": 6,
+      "valor_parcela": 200
+    }
+  },
+
+  "comprometimento_renda": {
+    "descricao": "Calcula percentual da renda comprometida com despesas",
+    "formula": "percentual = (despesas / renda) * 100",
+    "exemplo_usuario": {
+      "renda": 5000,
+      "despesas": 2488,
+      "percentual": 49.7
+    }
+  }
+}
