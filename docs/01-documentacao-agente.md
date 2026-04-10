@@ -5,12 +5,25 @@
 ### Problema
 > Qual problema financeiro seu agente resolve?
 
-[Sua descrição aqui]
+Muitos usuários possuem dúvidas financeiras básicas em seu dia-a-dia, como cálculos de parcelas, 
+rendimento de investimentos e até mesmo compreensão de produtos financeiros,
+isso se deve a dificuldade da linguagem técnica, falta de personalização e acesso limitado a orientação
+confiável.
+
+Além disso, ferramentas tradicionais são pouco intuitivas trazendo dificuldades na experiência dos usuários.
 
 ### Solução
 > Como o agente resolve esse problema de forma proativa?
 
-[Sua descrição aqui]
+O agente utiliza IA generativa para compreender perguntas de forma natural, identificando a intenção do
+usuário e fornecando respostas claras e objetivas.
+
+Sendo capaz de:
+
+- Explicar conceitos financeiros de forma simples
+- Simular cenários (juros, parcelas, rendimento)
+- Adaptar respostas ao contexto da conversa
+- Guiar o usuário com sugestões educativas
 
 ### Público-Alvo
 > Quem vai usar esse agente?
