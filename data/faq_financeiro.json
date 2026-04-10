@@ -1,0 +1,34 @@
+[
+  {
+    "pergunta": "Quanto posso guardar por mês?",
+    "resposta": "Com base nos seus dados, você possui aproximadamente R$ 2500 livres por mês, permitindo bons aportes para atingir suas metas financeiras."
+  },
+  {
+    "pergunta": "Quanto falta para minha reserva de emergência?",
+    "resposta": "Você já possui R$ 10.000 e precisa de R$ 15.000. Faltam R$ 5.000 para completar sua reserva."
+  },
+  {
+    "pergunta": "Em quanto tempo consigo atingir minha meta?",
+    "resposta": "Aportando R$ 500 por mês, você atinge sua meta em aproximadamente 10 meses."
+  },
+  {
+    "pergunta": "Qual investimento combina com meu perfil?",
+    "resposta": "Como seu perfil é moderado, opções como CDB e Tesouro Selic são adequadas para segurança e crescimento gradual."
+  },
+  {
+    "pergunta": "Estou gastando muito?",
+    "resposta": "Seu comprometimento de renda está em torno de 50%, o que é considerado saudável, mas pode ser otimizado para aumentar seus investimentos."
+  },
+  {
+    "pergunta": "Qual meu maior gasto?",
+    "resposta": "Seu maior gasto atual é com moradia (aluguel), seguido por alimentação."
+  },
+  {
+    "pergunta": "Vale a pena investir ou guardar dinheiro?",
+    "resposta": "Para seu objetivo de reserva de emergência, o ideal é investir em opções seguras com liquidez, como Tesouro Selic ou CDB com liquidez diária."
+  },
+  {
+    "pergunta": "O que é Tesouro Selic?",
+    "resposta": "É um título público de baixo risco indicado para reserva de emergência, com rendimento próximo à taxa Selic."
+  }
+]
