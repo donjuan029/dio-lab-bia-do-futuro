@@ -75,22 +75,41 @@ Ele atua como um "mentor financeiro digital", ajudando o usuário a entender e t
 
 ```mermaid
 flowchart TD
-    A[Cliente] -->|Mensagem| B[Interface]
-    B --> C[LLM]
-    C --> D[Base de Conhecimento]
-    D --> C
-    C --> E[Validação]
-    E --> F[Resposta]
+
+A[Usuário] -->|Pergunta em linguagem natural| B[Interface]
+
+B --> C[Processamento de Entrada]
+C --> D[LLM - Interpretação da Intenção]
+
+D --> E{Tipo de Solicitação}
+
+E -->|FAQ / Dúvida| F[Base de Conhecimento]
+E -->|Cálculo Financeiro| G[Módulo de Simulação]
+E -->|Explicação de Produto| H[Motor Educacional]
+
+F --> I[LLM - Geração de Resposta]
+G --> I
+H --> I
+
+I --> J[Validação e Segurança]
+
+J --> K{Resposta segura?}
+
+K -->|Sim| L[Resposta Final]
+K -->|Não| M[Mensagem de Limitação]
+
+L --> N[Usuário]
+M --> N
 ```
 
 ### Componentes
 
 | Componente | Descrição |
 |------------|-----------|
-| Interface | [ex: Chatbot em Streamlit] |
-| LLM | [ex: GPT-4 via API] |
-| Base de Conhecimento | [ex: JSON/CSV com dados do cliente] |
-| Validação | [ex: Checagem de alucinações] |
+| Interface | Chatbot (CLI, Colab ou Streamlit) |
+| LLM | GPT-4 / GPT-4.1-mini via API |
+| Base de Conhecimento | Regras financeiras básicas e lógica de cálculo |
+| Validação | Controle de respostas e prevenção de alucinações |
 
 ---
 
@@ -98,12 +117,12 @@ flowchart TD
 
 ### Estratégias Adotadas
 
-- [ ] [ex: Agente só responde com base nos dados fornecidos]
-- [ ] [ex: Respostas incluem fonte da informação]
-- [ ] [ex: Quando não sabe, admite e redireciona]
-- [ ] [ex: Não faz recomendações de investimento sem perfil do cliente]
+- [ ] Agente responde com base em regras e contexto da conversa
+- [ ] Explicações incluem lógica do cálculo (transparência)
+- [ ] Quando não sabe, admite limitação
+- [ ] Evita recomendações financeiras diretas sem contexto
 
 ### Limitações Declaradas
 > O que o agente NÃO faz?
 
-[Liste aqui as limitações explícitas do agente]
+- 
