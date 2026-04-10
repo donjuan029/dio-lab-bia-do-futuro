@@ -125,4 +125,8 @@ M --> N
 ### Limitações Declaradas
 > O que o agente NÃO faz?
 
-- 
+- Não fornece aconselhamento financeiro profissional
+- Não substitui consultores ou especialistas
+- Não realiza análise de perfil de investimento avançada
+- Não acessa dados bancários reais
+- Não garante precisão absoluta em cenários complexos
