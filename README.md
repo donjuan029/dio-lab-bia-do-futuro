@@ -39,8 +39,12 @@ Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alim
 | `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
 | `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
 | `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
+| `simulacoes_financeiras.json` | JSON | Simulações Financeiras |
+| `faq_financeiro.json` | JSON | Suporte ao Cliente |
 
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
+##Expansão nos Dados
+
+As expensões foram baseadas em um suporte melhor ao Cliente com o FAQ e também com Simulações Financeiras deixando mais prático sua vida.
 
 📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
 
