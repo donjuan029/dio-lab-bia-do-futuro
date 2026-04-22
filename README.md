@@ -42,7 +42,7 @@ Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alim
 | `simulacoes_financeiras.json` | JSON | Simulações Financeiras |
 | `faq_financeiro.json` | JSON | Suporte ao Cliente |
 
-##Expansão nos Dados
+## Expansão nos Dados
 
 As expensões foram baseadas em um suporte melhor ao Cliente com o FAQ e também com Simulações Financeiras deixando mais prático sua vida.
 
