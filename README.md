@@ -46,6 +46,63 @@ Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alim
 
 As expensões foram baseadas em um suporte melhor ao Cliente com o FAQ e também com Simulações Financeiras deixando mais prático sua vida.
 
+### Como os dados são carregados
+
+Existem duas opções, diretamente no Prompt ou através de código, como no exemplo abaixo:
+
+```python
+import pandas as pd
+import json
+import os
+
+# Caminho base do projeto
+BASE_DIR = "data"
+
+def load_json(file_name):
+    path = os.path.join(BASE_DIR, file_name)
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            print(f"[OK] JSON carregado: {file_name}")
+            return data
+    except FileNotFoundError:
+        print(f"[ERRO] Arquivo não encontrado: {file_name}")
+    except json.JSONDecodeError:
+        print(f"[ERRO] JSON inválido: {file_name}")
+    return None
+
+
+def load_csv(file_name):
+    path = os.path.join(BASE_DIR, file_name)
+    try:
+        df = pd.read_csv(path)
+        print(f"[OK] CSV carregado: {file_name}")
+        return df
+    except FileNotFoundError:
+        print(f"[ERRO] Arquivo não encontrado: {file_name}")
+    except pd.errors.EmptyDataError:
+        print(f"[ERRO] CSV vazio: {file_name}")
+    return None
+
+
+# Carregamento dos dados
+produtos = load_json("produtos_financeiros.json")
+simulacoes = load_json("simulacoes_financeiras.json")
+
+transacoes = load_csv("transacoes.csv")
+historico = load_csv("historico_atendimento.csv")
+
+
+# Validação básica
+if transacoes is not None:
+    print("\nResumo das transações:")
+    print(transacoes.describe())
+
+if historico is not None:
+    print("\nHistórico de atendimentos:")
+    print(historico.head())
+```
+
 📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
 
 ---
