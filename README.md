@@ -284,6 +284,74 @@ SIMULACOES FINANCEIRAS (data/simulacoes_financeiras.json):
 }
 ```
 
+## Exemplo de Contexto Montado
+
+> Exemplo de como os dados são formatados para o agente:
+
+```
+DADOS DO CLIENTE:
+- Nome: João Silva
+- Idade: 32
+- Profissão: Analista de Sistemas
+- Renda Mensal: R$ 5000.00
+- Perfil de Investidor: Moderado
+- Aceita Risco: Não
+- Objetivo Principal: Construir reserva de emergência
+- Patrimônio Total: R$ 15000.00
+- Reserva de Emergência Atual: R$ 10000.00
+
+METAS FINANCEIRAS:
+- Completar reserva de emergência: R$ 15000.00 até 2026-06
+- Entrada do apartamento: R$ 50000.00 até 2027-12
+
+RESUMO FINANCEIRO:
+- Total de Receitas: R$ 5000.00
+- Total de Despesas: R$ 2488.90
+- Saldo Mensal Disponível: R$ 2511.10
+- Maior Categoria de Gasto: Moradia
+
+DETALHAMENTO DE GASTOS:
+- Moradia: R$ 1380.00
+- Alimentação: R$ 570.00
+- Transporte: R$ 295.00
+- Saúde: R$ 188.00
+- Lazer: R$ 55.90
+
+HISTÓRICO DE INTERAÇÕES:
+- [2025-10-12] Tema: Metas financeiras → Cliente acompanhou progresso da reserva
+- [2025-10-01] Tema: Tesouro Selic → Cliente pediu explicação
+- [2025-09-15] Tema: CDB → Cliente perguntou sobre rentabilidade
+
+PRODUTOS FINANCEIROS RELEVANTES:
+- Tesouro Selic → Baixo risco | Ideal para reserva de emergência
+- CDB Liquidez Diária → Baixo risco | Rendimento diário
+- Fundo Multimercado → Risco médio | Diversificação
+
+REGRAS DE NEGÓCIO:
+- Sempre considerar o perfil moderado do usuário
+- Priorizar segurança e liquidez
+- Evitar recomendações de alto risco
+- Explicar cálculos de forma clara
+
+SIMULAÇÕES DISPONÍVEIS:
+- Juros Compostos → M = P * (1 + i)^n
+- Aporte Mensal → Crescimento com depósitos mensais
+- Parcelamento → Divisão de valores
+- Comprometimento de Renda → (% renda comprometida)
+
+FAQ RELEVANTE:
+- Quanto posso guardar por mês? → Aproximadamente R$ 2500 livres
+- Quanto falta para minha reserva? → Faltam R$ 5000
+- Em quanto tempo atinjo minha meta? → Aproximadamente 10 meses com aportes de R$ 500
+- Estou gastando muito? → Cerca de 50% da renda (saudável, mas pode otimizar)
+
+INSTRUÇÕES AO AGENTE:
+- Use os dados acima para responder
+- Seja claro, direto e educativo
+- Personalize as respostas
+- Evite respostas genéricas
+```
+
 
 📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
 
