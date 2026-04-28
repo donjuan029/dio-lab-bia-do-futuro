@@ -86,8 +86,7 @@ Ajudar o usuário a:
 - Alcançar seus objetivos financeiros
 ```
 
-> [!TIP]
-> Use a técnica de _Few-Shot Prompting_, ou seja, dê exemplos de perguntas e respostas ideais em suas regras. Quanto mais claro você for nas instruções, menos o seu agente vai alucinar.
+> Insights de Few Shot Prompting: https://www.dio.me/articles/few-shot-prompting-apresentando-o-potencial-da-geracao-de-texto-com-poucos-dados
 
 ---
 
