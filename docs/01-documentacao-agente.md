@@ -1,5 +1,14 @@
 # Documentação do Agente
 
+> [!TIP]
+>Prompt sugerido para esta etapa:
+
+Desenvolva uma documentação de um agente de IA financeiro, através do seguinte caso de uso [descreva seu caso de uso].
+Com as seguintes difinições: solução de problema, personalidade do agente, público-alvo, tom de voz e estratégias 
+anti-alucinações baseadas na técnica RAG.
+
+    [cole o template 01-documentacao-agente.md]
+
 ## Caso de Uso
 
 ### Problema
