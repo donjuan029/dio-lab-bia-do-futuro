@@ -29,7 +29,20 @@ Descreva se usou os arquivos da pasta `data`, por exemplo:
 ### Como os dados são carregados?
 > Descreva como seu agente acessa a base de conhecimento.
 
-[ex: Os JSON/CSV são carregados no início da sessão e incluídos no contexto do prompt]
+Os JSON/CSV são carregados no início da sessão e incluídos no contexto do prompt ou via código, exemplo:
+
+import json
+import pandas as pd
+
+
+# =================== CARREGAR OS DADOS ===================== #
+faq = json.load(open('./data/faq_financeiro.json'))
+hitorico = pd.read_csv(open('./data/historico_atendimento.csv'))
+perfil = json.load(open('./data/perfil_investidor.json'))
+produtos = json.load(open('./data/produtos_financeiros.json'))
+simulações = json.load(open('./data/simulacoes_financeiras.json'))
+transacoes = pd.read_csv(open('./data/transacoes.csv'))
+
 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
