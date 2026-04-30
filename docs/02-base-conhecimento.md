@@ -23,53 +23,102 @@ Existem duas opções, diretamente no Prompt ou através de código, como no exe
 import pandas as pd
 import json
 import os
+import logging
 
-# Caminho base do projeto
+# Configuração de logs
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s: %(message)s"
+)
+
+# Caminho base
 BASE_DIR = "data"
+
 
 def load_json(file_name):
     path = os.path.join(BASE_DIR, file_name)
+
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-            print(f"[OK] JSON carregado: {file_name}")
+
+            if not data:
+                raise ValueError("JSON vazio")
+
+            logging.info(f"JSON carregado: {file_name}")
             return data
+
     except FileNotFoundError:
-        print(f"[ERRO] Arquivo não encontrado: {file_name}")
+        logging.error(f"Arquivo não encontrado: {file_name}")
     except json.JSONDecodeError:
-        print(f"[ERRO] JSON inválido: {file_name}")
+        logging.error(f"JSON inválido: {file_name}")
+    except ValueError as e:
+        logging.error(f"{file_name}: {e}")
+
     return None
 
 
 def load_csv(file_name):
     path = os.path.join(BASE_DIR, file_name)
+
     try:
         df = pd.read_csv(path)
-        print(f"[OK] CSV carregado: {file_name}")
+
+        if df.empty:
+            raise ValueError("CSV vazio")
+
+        logging.info(f"CSV carregado: {file_name}")
         return df
+
     except FileNotFoundError:
-        print(f"[ERRO] Arquivo não encontrado: {file_name}")
+        logging.error(f"Arquivo não encontrado: {file_name}")
     except pd.errors.EmptyDataError:
-        print(f"[ERRO] CSV vazio: {file_name}")
+        logging.error(f"CSV vazio: {file_name}")
+    except Exception as e:
+        logging.error(f"Erro ao carregar {file_name}: {e}")
+
     return None
 
 
-# Carregamento dos dados
-produtos = load_json("produtos_financeiros.json")
-simulacoes = load_json("simulacoes_financeiras.json")
+# =========================
+# CARREGAMENTO DOS DADOS
+# =========================
 
+# CSVs
 transacoes = load_csv("transacoes.csv")
 historico = load_csv("historico_atendimento.csv")
 
+# JSONs
+perfil = load_json("perfil_investidor.json")
+produtos = load_json("produtos_financeiros.json")
+simulacoes = load_json("simulacoes_financeiras.json")
+faq = load_json("faq_financeiro.json")
 
-# Validação básica
+
+# =========================
+# VALIDAÇÃO BÁSICA
+# =========================
+
+if perfil:
+    logging.info("\nPerfil do Cliente:")
+    logging.info(perfil)
+
 if transacoes is not None:
-    print("\nResumo das transações:")
-    print(transacoes.describe())
+    logging.info("\nResumo das Transações:")
+    logging.info(transacoes.describe())
 
 if historico is not None:
-    print("\nHistórico de atendimentos:")
-    print(historico.head())
+    logging.info("\nÚltimos Atendimentos:")
+    logging.info(historico.tail(3))
+
+if produtos:
+    logging.info(f"\nProdutos disponíveis: {len(produtos)}")
+
+if faq:
+    logging.info(f"FAQs carregadas: {len(faq)}")
+
+if simulacoes:
+    logging.info(f"Simulações disponíveis: {list(simulacoes.keys())}")
 ```
 
 ### Como os dados são usados no Prompt?
