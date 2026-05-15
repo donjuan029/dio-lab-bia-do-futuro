@@ -48,3 +48,6 @@ streamlit
 openai
 python-dotenv
 ```
+## Vídeo Explicando a Solução na Prática
+
+Youtube: https://youtu.be/yBsPdgKNZQM
