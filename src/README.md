@@ -26,6 +26,11 @@ pip install -r requirements.txt
 streamlt run .\src\app.py
 ```
 
+## Evidências de Execução
+
+<img width="717" height="857" alt="e2" src="https://github.com/user-attachments/assets/b3b2a1be-4431-4806-8aac-f64564f5497e" />
+
+
 ## Estrutura Sugerida
 
 ```
