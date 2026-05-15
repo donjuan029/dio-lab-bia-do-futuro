@@ -1,460 +1,352 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+<div align="center">
 
-## Contexto
+<h1>💰 FinAI Assistant</h1>
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
+<p><strong>Agente Financeiro Inteligente com IA Generativa</strong></p>
 
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
+<p>
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Streamlit-1.x-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
+  <img src="https://img.shields.io/badge/Ollama-Local_LLM-black?style=for-the-badge&logo=ollama&logoColor=white" />
+  <img src="https://img.shields.io/badge/Status-Concluído-22c55e?style=for-the-badge" />
+</p>
 
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+<p>
+  Assistente conversacional financeiro que combina IA generativa, engenharia de prompts e dados contextuais para oferecer orientação financeira personalizada, segura e sem alucinações.
+</p>
 
----
-
-## O Que Você Deve Entregar
-
-### 1. Documentação do Agente
-
-Defina **o que** seu agente faz e **como** ele funciona:
-
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
-
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
+</div>
 
 ---
 
-### 2. Base de Conhecimento
+## 📋 Índice
 
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
+- [Sobre o Projeto](#-sobre-o-projeto)
+- [Demonstração](#-demonstração)
+- [Arquitetura](#-arquitetura)
+- [Base de Conhecimento](#-base-de-conhecimento)
+- [Engenharia de Prompts](#-engenharia-de-prompts)
+- [Tecnologias](#-tecnologias)
+- [Pré-requisitos](#-pré-requisitos)
+- [Instalação e Execução](#-instalação-e-execução)
+- [Estrutura do Repositório](#-estrutura-do-repositório)
+- [Avaliação e Métricas](#-avaliação-e-métricas)
+- [Segurança e Anti-Alucinação](#-segurança-e-anti-alucinação)
+- [Documentação](#-documentação)
 
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
-| `simulacoes_financeiras.json` | JSON | Simulações Financeiras |
-| `faq_financeiro.json` | JSON | Suporte ao Cliente |
+---
 
-## Expansão nos Dados
+## 🎯 Sobre o Projeto
 
-As expensões foram baseadas em um suporte melhor ao Cliente com o FAQ e também com Simulações Financeiras deixando mais prático sua vida.
+A maioria dos aplicativos financeiros entrega números e gráficos, mas não orienta o usuário sobre **o que fazer com eles**. O FinAI Assistant resolve isso: um agente conversacional que analisa o perfil, histórico e metas do cliente e responde em linguagem natural, de forma personalizada e responsável.
 
-### Como os dados são carregados
+### Problema
 
-Existem duas opções, diretamente no Prompt ou através de código, como no exemplo abaixo:
+- Pessoas com dificuldade em interpretar sua própria situação financeira
+- Ferramentas que mostram dados, mas não geram entendimento
+- Falta de acesso a orientação financeira personalizada e confiável
+- Soluções genéricas que ignoram o contexto e o perfil do usuário
+
+### Solução
+
+O FinAI Assistant atua como um **mentor financeiro digital** que:
+
+- Analisa gastos por categoria e identifica padrões
+- Acompanha o progresso em direção às metas financeiras
+- Recomenda produtos compatíveis com o perfil do investidor
+- Realiza simulações financeiras com explicação dos cálculos
+- Responde perguntas em linguagem natural usando a base de conhecimento do cliente
+- Admite limitações e nunca inventa informações
+
+---
+
+## 🖥 Demonstração
+
+> Interface conversacional via Streamlit com modelo local via Ollama.
+
+**Exemplo de interação:**
+
+```
+Usuário  →  "Quanto falta para completar minha reserva de emergência?"
+
+FinAI    →  Você já possui R$ 10.000 guardados e sua meta é R$ 15.000.
+            Faltam R$ 5.000 para completar sua reserva.
+            Com seu saldo mensal disponível de ~R$ 2.500, você pode
+            atingir esse objetivo em cerca de 2 meses mantendo o ritmo.
+            Quer que eu simule diferentes cenários de aporte?
+```
+
+```
+Usuário  →  "Qual investimento você recomenda para mim?"
+
+FinAI    →  Como seu perfil é moderado e o foco é reserva de emergência,
+            recomendo priorizar segurança e liquidez:
+            • Tesouro Selic — baixo risco, aporte mínimo de R$ 30
+            • CDB Liquidez Diária — 102% do CDI, resgate a qualquer momento
+            Evitarei sugestões de risco alto neste momento.
+```
+
+---
+
+## 🏗 Arquitetura
+
+### Diagrama de Blocos
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        FINAI ASSISTANT                          │
+│                                                                 │
+│  ┌──────────┐    ┌─────────────────┐    ┌──────────────────┐   │
+│  │ Usuário  │───▶│   Streamlit     │───▶│  System Prompt   │   │
+│  └──────────┘    │   Interface     │    │  + Contexto      │   │
+│       ▲          └─────────────────┘    │  Estruturado     │   │
+│       │                                 └────────┬─────────┘   │
+│       │                                          │             │
+│  ┌────┴─────────────────────────┐               ▼             │
+│  │      BASE DE CONHECIMENTO    │    ┌──────────────────────┐  │
+│  │                              │    │   Ollama (gpt-oss)   │  │
+│  │  perfil_investidor.json      │───▶│   Execução local     │  │
+│  │  transacoes.csv              │    └──────────┬───────────┘  │
+│  │  historico_atendimento.csv   │               │              │
+│  │  produtos_financeiros.json   │               ▼              │
+│  │  simulacoes_financeiras.json │    ┌──────────────────────┐  │
+│  │  faq_financeiro.json         │    │  Validação de Escopo │  │
+│  └──────────────────────────────┘    │  Anti-Alucinação     │  │
+│                                      └──────────┬───────────┘  │
+│                                                 │              │
+│                                                 ▼              │
+│                                      ┌──────────────────────┐  │
+│                                      │   Resposta Final     │  │
+│                                      └──────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Fluxo de Decisão
+
+```mermaid
+flowchart TD
+    A[Usuário] -->|Mensagem| B[Interface Streamlit]
+    B --> C[Monta Contexto com Dados do Cliente]
+    C --> D[System Prompt + Contexto → Ollama]
+    D --> E{Classifica a Intenção}
+    E -->|Dúvida / FAQ| F[Consulta FAQ + Perfil]
+    E -->|Análise de Gastos| G[Processa transacoes.csv]
+    E -->|Investimento| H[Filtra produtos por perfil]
+    E -->|Simulação| I[Aplica fórmulas financeiras]
+    E -->|Fora do escopo| J[Mensagem de Limitação]
+    F & G & H & I --> K[LLM Gera Resposta Personalizada]
+    K --> L{Resposta é segura e fundamentada?}
+    L -->|Sim| M[Resposta ao Usuário]
+    L -->|Não| J
+    J --> M
+```
+
+### Decisões de Design
+
+| Decisão | Escolha | Motivo |
+|---------|---------|--------|
+| LLM | Ollama local (`gpt-oss`) | Privacidade dos dados + sem custo de API |
+| Interface | Streamlit | Prototipagem rápida com foco na lógica do agente |
+| Contexto | Injetado no prompt por requisição | Simplicidade — sem necessidade de vetor DB |
+| Dados | CSV + JSON mockados | Sem exposição de dados sensíveis reais |
+| Segurança | Regras no system prompt | Controle declarativo e auditável do comportamento |
+
+---
+
+## 📚 Base de Conhecimento
+
+Todos os dados são carregados em memória na inicialização e montados como um bloco de contexto estruturado a cada requisição:
+
+| Arquivo | Tipo | Conteúdo |
+|---------|------|----------|
+| `data/perfil_investidor.json` | JSON | Nome, idade, renda, perfil de risco e metas financeiras |
+| `data/transacoes.csv` | CSV | Histórico de entradas e saídas por categoria |
+| `data/historico_atendimento.csv` | CSV | Interações anteriores para continuidade contextual |
+| `data/produtos_financeiros.json` | JSON | Catálogo com risco, rentabilidade e aporte mínimo |
+| `data/simulacoes_financeiras.json` | JSON | Fórmulas de juros compostos, aportes e parcelamento |
+| `data/faq_financeiro.json` | JSON | Pares pergunta/resposta calibrados para o perfil do cliente |
+
+### Exemplo de Contexto Montado
 
 ```python
-import pandas as pd
-import json
-import os
-
-# Caminho base do projeto
-BASE_DIR = "data"
-
-def load_json(file_name):
-    path = os.path.join(BASE_DIR, file_name)
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            print(f"[OK] JSON carregado: {file_name}")
-            return data
-    except FileNotFoundError:
-        print(f"[ERRO] Arquivo não encontrado: {file_name}")
-    except json.JSONDecodeError:
-        print(f"[ERRO] JSON inválido: {file_name}")
-    return None
-
-
-def load_csv(file_name):
-    path = os.path.join(BASE_DIR, file_name)
-    try:
-        df = pd.read_csv(path)
-        print(f"[OK] CSV carregado: {file_name}")
-        return df
-    except FileNotFoundError:
-        print(f"[ERRO] Arquivo não encontrado: {file_name}")
-    except pd.errors.EmptyDataError:
-        print(f"[ERRO] CSV vazio: {file_name}")
-    return None
-
-
-# Carregamento dos dados
-produtos = load_json("produtos_financeiros.json")
-simulacoes = load_json("simulacoes_financeiras.json")
-
-transacoes = load_csv("transacoes.csv")
-historico = load_csv("historico_atendimento.csv")
-
-
-# Validação básica
-if transacoes is not None:
-    print("\nResumo das transações:")
-    print(transacoes.describe())
-
-if historico is not None:
-    print("\nHistórico de atendimentos:")
-    print(historico.head())
-```
-
-### Como os dados são usados no Prompt?
-> Os dados vão no system prompt? São consultados dinamicamente?
-
-```
-PERFIL E DADOS DO CLIENTE (data/perfil_investidor.json):
-{
-  "nome": "João Silva",
-  "idade": 32,
-  "profissao": "Analista de Sistemas",
-  "renda_mensal": 5000.00,
-  "perfil_investidor": "moderado",
-  "objetivo_principal": "Construir reserva de emergência",
-  "patrimonio_total": 15000.00,
-  "reserva_emergencia_atual": 10000.00,
-  "aceita_risco": false,
-  "metas": [
-    {
-      "meta": "Completar reserva de emergência",
-      "valor_necessario": 15000.00,
-      "prazo": "2026-06"
-    },
-    {
-      "meta": "Entrada do apartamento",
-      "valor_necessario": 50000.00,
-      "prazo": "2027-12"
-    }
-  ]
-}
-
-TRANSACOES DO CLIENTE (data/transacoes.csv):
-data,descricao,categoria,valor,tipo
-2025-10-01,Salário,receita,5000.00,entrada
-2025-10-02,Aluguel,moradia,1200.00,saida
-2025-10-03,Supermercado,alimentacao,450.00,saida
-2025-10-05,Netflix,lazer,55.90,saida
-2025-10-07,Farmácia,saude,89.00,saida
-2025-10-10,Restaurante,alimentacao,120.00,saida
-2025-10-12,Uber,transporte,45.00,saida
-2025-10-15,Conta de Luz,moradia,180.00,saida
-2025-10-20,Academia,saude,99.00,saida
-2025-10-25,Combustível,transporte,250.00,saida
-
-FAQ FINANCEIRO (data/faq_financeiro.json):
-[
-  {
-    "pergunta": "Quanto posso guardar por mês?",
-    "resposta": "Com base nos seus dados, você possui aproximadamente R$ 2500 livres por mês, permitindo bons aportes para atingir suas metas financeiras."
-  },
-  {
-    "pergunta": "Quanto falta para minha reserva de emergência?",
-    "resposta": "Você já possui R$ 10.000 e precisa de R$ 15.000. Faltam R$ 5.000 para completar sua reserva."
-  },
-  {
-    "pergunta": "Em quanto tempo consigo atingir minha meta?",
-    "resposta": "Aportando R$ 500 por mês, você atinge sua meta em aproximadamente 10 meses."
-  },
-  {
-    "pergunta": "Qual investimento combina com meu perfil?",
-    "resposta": "Como seu perfil é moderado, opções como CDB e Tesouro Selic são adequadas para segurança e crescimento gradual."
-  },
-  {
-    "pergunta": "Estou gastando muito?",
-    "resposta": "Seu comprometimento de renda está em torno de 50%, o que é considerado saudável, mas pode ser otimizado para aumentar seus investimentos."
-  },
-  {
-    "pergunta": "Qual meu maior gasto?",
-    "resposta": "Seu maior gasto atual é com moradia (aluguel), seguido por alimentação."
-  },
-  {
-    "pergunta": "Vale a pena investir ou guardar dinheiro?",
-    "resposta": "Para seu objetivo de reserva de emergência, o ideal é investir em opções seguras com liquidez, como Tesouro Selic ou CDB com liquidez diária."
-  },
-  {
-    "pergunta": "O que é Tesouro Selic?",
-    "resposta": "É um título público de baixo risco indicado para reserva de emergência, com rendimento próximo à taxa Selic."
-  }
-]
-
-HISTORICO DE ATENDIMENTO (data/historico_atendimento.csv):
-data,canal,tema,resumo,resolvido
-2025-09-15,chat,CDB,Cliente perguntou sobre rentabilidade e prazos,sim
-2025-09-22,telefone,Problema no app,Erro ao visualizar extrato foi corrigido,sim
-2025-10-01,chat,Tesouro Selic,Cliente pediu explicação sobre o funcionamento do Tesouro Direto,sim
-2025-10-12,chat,Metas financeiras,Cliente acompanhou o progresso da reserva de emergência,sim
-2025-10-25,email,Atualização cadastral,Cliente atualizou e-mail e telefone,sim
-
-PRODUTOS FINANCEIROS (data/produtos_financeiros.json):
-[
-  {
-    "nome": "Tesouro Selic",
-    "categoria": "renda_fixa",
-    "risco": "baixo",
-    "rentabilidade": "100% da Selic",
-    "aporte_minimo": 30.00,
-    "indicado_para": "Reserva de emergência e iniciantes"
-  },
-  {
-    "nome": "CDB Liquidez Diária",
-    "categoria": "renda_fixa",
-    "risco": "baixo",
-    "rentabilidade": "102% do CDI",
-    "aporte_minimo": 100.00,
-    "indicado_para": "Quem busca segurança com rendimento diário"
-  },
-  {
-    "nome": "LCI/LCA",
-    "categoria": "renda_fixa",
-    "risco": "baixo",
-    "rentabilidade": "95% do CDI",
-    "aporte_minimo": 1000.00,
-    "indicado_para": "Quem pode esperar 90 dias (isento de IR)"
-  },
-  {
-    "nome": "Fundo Multimercado",
-    "categoria": "fundo",
-    "risco": "medio",
-    "rentabilidade": "CDI + 2%",
-    "aporte_minimo": 500.00,
-    "indicado_para": "Perfil moderado que busca diversificação"
-  },
-  {
-    "nome": "Fundo de Ações",
-    "categoria": "fundo",
-    "risco": "alto",
-    "rentabilidade": "Variável",
-    "aporte_minimo": 100.00,
-    "indicado_para": "Perfil arrojado com foco no longo prazo"
-  }
-]
-
-SIMULACOES FINANCEIRAS (data/simulacoes_financeiras.json):
-{
-  "juros_compostos": {
-    "descricao": "Cálculo de rendimento ao longo do tempo com reinvestimento",
-    "formula": "M = P * (1 + i)^n",
-    "variaveis": {
-      "P": "valor inicial",
-      "i": "taxa de juros mensal",
-      "n": "tempo em meses"
-    },
-    "exemplo_usuario": {
-      "valor_inicial": 10000,
-      "taxa": 0.01,
-      "periodo_meses": 12,
-      "resultado_aproximado": 11268
-    }
-  },
-
-  "aporte_mensal": {
-    "descricao": "Simula crescimento com aportes mensais",
-    "formula": "M = P + (aporte * n)",
-    "exemplo_usuario": {
-      "aporte_mensal": 500,
-      "periodo_meses": 10,
-      "resultado": 15000,
-      "contexto": "Usuário pode atingir a meta de reserva de emergência"
-    }
-  },
-
-  "parcelamento": {
-    "descricao": "Divisão simples de valores",
-    "formula": "parcela = valor_total / numero_parcelas",
-    "exemplo": {
-      "valor_total": 1200,
-      "parcelas": 6,
-      "valor_parcela": 200
-    }
-  },
-
-  "comprometimento_renda": {
-    "descricao": "Calcula percentual da renda comprometida com despesas",
-    "formula": "percentual = (despesas / renda) * 100",
-    "exemplo_usuario": {
-      "renda": 5000,
-      "despesas": 2488,
-      "percentual": 49.7
-    }
-  }
-}
-```
-
-## Exemplo de Contexto Montado
-
-> Exemplo de como os dados são formatados para o agente:
-
-```
+contexto = f"""
 DADOS DO CLIENTE:
-- Nome: João Silva
-- Idade: 32
-- Profissão: Analista de Sistemas
-- Renda Mensal: R$ 5000.00
-- Perfil de Investidor: Moderado
-- Aceita Risco: Não
-- Objetivo Principal: Construir reserva de emergência
-- Patrimônio Total: R$ 15000.00
-- Reserva de Emergência Atual: R$ 10000.00
+- Nome: {perfil['nome']} | Perfil: {perfil['perfil_investidor']}
+- Renda: R$ {perfil['renda_mensal']} | Aceita Risco: {"Sim" if perfil['aceita_risco'] else "Não"}
+- Reserva Atual: R$ {perfil['reserva_emergencia_atual']}
 
 METAS FINANCEIRAS:
-- Completar reserva de emergência: R$ 15000.00 até 2026-06
-- Entrada do apartamento: R$ 50000.00 até 2027-12
+{json.dumps(perfil['metas'], indent=2, ensure_ascii=False)}
 
-RESUMO FINANCEIRO:
-- Total de Receitas: R$ 5000.00
-- Total de Despesas: R$ 2488.90
-- Saldo Mensal Disponível: R$ 2511.10
-- Maior Categoria de Gasto: Moradia
+TRANSAÇÕES RECENTES:
+{transacoes.to_string(index=False)}
 
-DETALHAMENTO DE GASTOS:
-- Moradia: R$ 1380.00
-- Alimentação: R$ 570.00
-- Transporte: R$ 295.00
-- Saúde: R$ 188.00
-- Lazer: R$ 55.90
+PRODUTOS DISPONÍVEIS:
+{json.dumps(produtos, indent=2, ensure_ascii=False)}
 
-HISTÓRICO DE INTERAÇÕES:
-- [2025-10-12] Tema: Metas financeiras → Cliente acompanhou progresso da reserva
-- [2025-10-01] Tema: Tesouro Selic → Cliente pediu explicação
-- [2025-09-15] Tema: CDB → Cliente perguntou sobre rentabilidade
-
-PRODUTOS FINANCEIROS RELEVANTES:
-- Tesouro Selic → Baixo risco | Ideal para reserva de emergência
-- CDB Liquidez Diária → Baixo risco | Rendimento diário
-- Fundo Multimercado → Risco médio | Diversificação
-
-REGRAS DE NEGÓCIO:
-- Sempre considerar o perfil moderado do usuário
-- Priorizar segurança e liquidez
-- Evitar recomendações de alto risco
-- Explicar cálculos de forma clara
-
-SIMULAÇÕES DISPONÍVEIS:
-- Juros Compostos → M = P * (1 + i)^n
-- Aporte Mensal → Crescimento com depósitos mensais
-- Parcelamento → Divisão de valores
-- Comprometimento de Renda → (% renda comprometida)
-
-FAQ RELEVANTE:
-- Quanto posso guardar por mês? → Aproximadamente R$ 2500 livres
-- Quanto falta para minha reserva? → Faltam R$ 5000
-- Em quanto tempo atinjo minha meta? → Aproximadamente 10 meses com aportes de R$ 500
-- Estou gastando muito? → Cerca de 50% da renda (saudável, mas pode otimizar)
-
-INSTRUÇÕES AO AGENTE:
-- Use os dados acima para responder
-- Seja claro, direto e educativo
-- Personalize as respostas
-- Evite respostas genéricas
+SIMULAÇÕES FINANCEIRAS:
+{json.dumps(simulacoes, indent=2, ensure_ascii=False)}
+"""
 ```
 
-
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
-
 ---
 
-### 3. Prompts do Agente
+## 🧠 Engenharia de Prompts
 
-Documente os prompts que definem o comportamento do seu agente:
-
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
-
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
-
----
-
-### 4. Aplicação Funcional
-
-Desenvolva um **protótipo funcional** do seu agente:
-
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
-
-📁 **Pasta:** [`src/`](./src/)
-
----
-
-### 5. Avaliação e Métricas
-
-Descreva como você avalia a qualidade do seu agente:
-
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
-
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
-
----
-
-### 6. Pitch
-
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
-
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
-
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
-
----
-
-## Ferramentas Sugeridas
-
-Todas as ferramentas abaixo possuem versões gratuitas:
-
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
-
----
-
-## Estrutura do Repositório
+O comportamento do agente é controlado por um system prompt estruturado em seções funcionais:
 
 ```
-📁 lab-agente-financeiro/
+IDENTIDADE        → Quem é o agente e qual seu objetivo
+DIRETRIZES        → Como personalizar e adaptar as respostas
+USO DOS DADOS     → Quando usar cada arquivo da base de conhecimento
+REGRAS DE SEGURANÇA → O que nunca fazer (anti-alucinação)
+ESTILO            → Tom de voz, linguagem e nível de detalhe
+COMPORTAMENTO     → Mapeamento intenção → fonte de dados
+LIMITAÇÕES        → O que está fora do escopo do agente
+```
+
+A técnica central é **Few-Shot Prompting com contexto estruturado**: ao injetar os dados reais do cliente no prompt junto com as instruções, o modelo sempre ancora as respostas em fatos verificáveis — sem espaço para especulação.
+
+---
+
+## 🛠 Tecnologias
+
+| Tecnologia | Versão | Papel no Projeto |
+|-----------|--------|-----------------|
+| Python | 3.10+ | Linguagem principal |
+| Streamlit | 1.x | Interface conversacional web |
+| Ollama | Latest | Execução local do LLM (sem API externa) |
+| Pandas | 2.x | Carregamento e processamento dos CSVs |
+| Requests | 2.x | Comunicação HTTP com a API do Ollama |
+
+---
+
+## ✅ Pré-requisitos
+
+- Python **3.10** ou superior
+- [Ollama](https://ollama.com) instalado e em execução local
+- Modelo `gpt-oss` disponível
+
+```bash
+# Verificar instalação do Ollama
+ollama list
+
+# Baixar o modelo
+ollama pull gpt-oss
+
+# Testar
+ollama run gpt-oss "Olá!"
+```
+
+---
+
+## 🚀 Instalação e Execução
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/finai-assistant.git
+cd finai-assistant
+
+# 2. Crie e ative um ambiente virtual
+python -m venv .venv
+source .venv/bin/activate        # Linux/macOS
+.venv\Scripts\activate           # Windows
+
+# 3. Instale as dependências
+pip install -r src/requirements.txt
+
+# 4. Certifique-se de que o Ollama está rodando
+ollama serve
+
+# 5. Inicie a aplicação
+streamlit run src/app.py
+```
+
+Acesse: `http://localhost:8501`
+
+> **Configuração:** Por padrão, a aplicação se conecta ao Ollama em `http://localhost:11434`. Para alterar, edite `OLLAMA_URL` em `src/app.py`.
+
+---
+
+## 📁 Estrutura do Repositório
+
+```
+finai-assistant/
 │
-├── 📄 README.md
+├── README.md                            # Este arquivo
 │
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
+├── data/                                # Base de conhecimento (dados mockados)
+│   ├── perfil_investidor.json           # Perfil financeiro do cliente
+│   ├── transacoes.csv                   # Histórico de transações mensais
+│   ├── historico_atendimento.csv        # Histórico de atendimentos anteriores
+│   ├── produtos_financeiros.json        # Catálogo de produtos com risco e rentabilidade
+│   ├── simulacoes_financeiras.json      # Fórmulas de simulação financeira
+│   └── faq_financeiro.json              # FAQ personalizado ao perfil do cliente
 │
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
+├── docs/                                # Documentação técnica do projeto
+│   ├── 01-documentacao-agente.md        # Caso de uso, persona e arquitetura
+│   ├── 02-base-conhecimento.md          # Estratégia de dados e integração
+│   ├── 03-prompts.md                    # System prompt, exemplos e edge cases
+│   ├── 04-metricas.md                   # Testes, resultados e formulário de avaliação
+│   └── 05-pitch.md                      # Roteiro do pitch de 3 minutos
 │
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
+├── src/
+│   └── app.py                           # Aplicação principal (Streamlit + Ollama)
 │
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
+├── assets/                              # Imagens, screenshots e diagramas
 │
-└── 📁 examples/                      # Referências e exemplos
+└── examples/                            # Referências de implementação
     └── README.md
 ```
 
 ---
 
-## Dicas Finais
+## 📊 Avaliação e Métricas
 
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
+Quatro cenários de teste foram executados para validar o comportamento do agente:
+
+| # | Cenário | Entrada | Resultado |
+|---|---------|---------|-----------|
+| 1 | Consulta de gastos | `"Quanto gastei com alimentação?"` | ✅ R$ 570,00 retornado corretamente |
+| 2 | Recomendação de produto | `"Qual investimento você recomenda?"` | ✅ Tesouro Selic / CDB (compatível com perfil moderado) |
+| 3 | Fora do escopo | `"Qual a previsão do tempo?"` | ✅ Redirecionado sem resposta inventada |
+| 4 | Produto inexistente | `"Quanto rende o produto XYZ?"` | ✅ Limitação admitida explicitamente |
+
+### Pontuação Média (escala 1–5)
+
+| Métrica | O que avalia | Nota |
+|---------|-------------|------|
+| **Assertividade** | A resposta respondeu ao que foi perguntado? | **5 / 5** |
+| **Segurança** | As informações pareceram confiáveis? | **5 / 5** |
+| **Coerência** | A linguagem foi clara e adequada ao perfil? | **5 / 5** |
+
+---
+
+## 🔒 Segurança e Anti-Alucinação
+
+| Estratégia | Implementação |
+|-----------|--------------|
+| **Dados como âncora** | O modelo só responde com base nos arquivos carregados — nunca especula |
+| **Perfil como filtro** | Produtos de risco alto são bloqueados para perfil moderado |
+| **Escopo declarado** | Perguntas fora do domínio financeiro são redirecionadas explicitamente |
+| **Transparência nos cálculos** | Simulações mostram a fórmula e os valores utilizados |
+| **Limitações explícitas** | O agente nunca se posiciona como substituto de consultoria profissional |
+| **Admissão de ignorância** | Quando não há dado suficiente, o agente declara a limitação |
+
+---
+
+## 📄 Documentação
+
+| Documento | Conteúdo |
+|-----------|----------|
+| [`01-documentacao-agente.md`](./docs/01-documentacao-agente.md) | Caso de uso, persona, arquitetura e estratégias de segurança |
+| [`02-base-conhecimento.md`](./docs/02-base-conhecimento.md) | Estratégia de dados, carregamento e exemplo de contexto montado |
+| [`03-prompts.md`](./docs/03-prompts.md) | System prompt completo, exemplos de interação e edge cases |
+| [`04-metricas.md`](./docs/04-metricas.md) | Cenários de teste, resultados e formulário de feedback |
+| [`05-pitch.md`](./docs/05-pitch.md) | Roteiro do pitch de 3 minutos com checklist de entrega |
+
+---
+
+<div align="center">
+  <sub>Desenvolvido como solução para o desafio <strong>Agente Financeiro Inteligente com IA Generativa</strong> · <a href="https://dio.me">DIO</a></sub>
+</div>
